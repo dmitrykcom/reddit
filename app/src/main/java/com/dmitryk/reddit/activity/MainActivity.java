@@ -29,7 +29,7 @@ import reddit.dmitryk.com.reddit.R;
 public class MainActivity extends AppCompatActivity {
 
     private static final String STATE_LIST = "state_list";
-    private static final String STATE_DATA = "state_list";
+    private static final String STATE_DATA = "state_data";
 
     @BindView(R.id.recycler_view) android.support.v7.widget.RecyclerView recyclerView;
     @BindView(R.id.swipe) SwipeRefreshLayout swipeRefreshLayout;
@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        posts.add(Post.empty());
-
         adapter = new PostRecyclerAdapter(posts, this);
         recyclerView.setAdapter(adapter);
 
@@ -81,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         recyclerView.setOnScrollListener(endlessScrollListener);
+
     }
 
     /**
@@ -151,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
         Bus.getDefault().register(this);
         if (listState != null) {
             layoutManager.onRestoreInstanceState(listState);
+        } else {
+            requestPosts();
+            swipeRefreshLayout.setRefreshing(true);
         }
     }
 
