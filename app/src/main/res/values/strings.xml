@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">reddit</string>
+    <string name="post_info">r/pics • 7h • imgur</string>
+    <string name="share">Share</string>
+</resources>
